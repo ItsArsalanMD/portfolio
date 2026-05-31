@@ -1,0 +1,149 @@
+---
+---
+
+<section id="hero" class="relative min-h-screen flex items-center pt-24 overflow-hidden dot-grid">
+  <!-- Blurred Radial Glow -->
+  <div class="absolute right-0 bottom-1/4 w-[600px] h-[600px] rounded-full glow-bg -z-10 opacity-70 pointer-events-none"></div>
+
+  <div class="max-w-7xl mx-auto px-6 w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+    
+    <!-- Left: Content (60% equivalent on desktop) -->
+    <div class="lg:col-span-7 flex flex-col justify-center space-y-6 reveal">
+      <div class="inline-flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-accent-cyan animate-pulse"></span>
+        <span class="font-mono text-sm uppercase tracking-wider text-accent-cyan">
+          Full-Stack Developer &amp; Freelancer
+        </span>
+      </div>
+
+      <h1 class="font-display font-bold text-5xl md:text-6xl lg:text-7xl text-text-primary leading-[1.1] tracking-tight">
+        Building the Web,<br />
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent-cyan to-accent-green">Front to Back.</span>
+      </h1>
+
+      <p class="font-body text-lg md:text-xl text-text-secondary max-w-xl leading-relaxed">
+        I'm Arsalan Shaikh — a Full-Stack Developer. I build scalable web apps, automate infrastructure, and take on freelance projects that demand real engineering.
+      </p>
+
+      <div class="flex flex-wrap gap-4 pt-4 font-mono text-sm">
+        <a href="#projects" class="px-6 py-3.5 rounded bg-accent-cyan text-bg-primary font-bold hover:shadow-lg hover:shadow-accent-cyan/20 hover:scale-[1.02] active:scale-95 transition-all duration-300">
+          View My Work
+        </a>
+        <a href="#" class="px-6 py-3.5 rounded border border-accent-cyan/40 text-accent-cyan hover:border-accent-cyan hover:bg-accent-cyan/5 hover:scale-[1.02] active:scale-95 transition-all duration-300" id="resume-download-btn">
+          Download Resume
+        </a>
+      </div>
+    </div>
+
+    <!-- Right: Animated Terminal (40% equivalent on desktop) -->
+    <div class="lg:col-span-5 flex justify-center lg:justify-end reveal stagger-1">
+      <div class="w-full max-w-md bg-bg-secondary/90 border border-border-accent/40 rounded-xl overflow-hidden shadow-2xl shadow-accent-cyan/5 backdrop-blur-md">
+        <!-- Terminal Header -->
+        <div class="bg-bg-surface px-4 py-3 flex items-center justify-between border-b border-border-main">
+          <div class="flex gap-1.5">
+            <span class="w-3 h-3 rounded-full bg-red-500/80"></span>
+            <span class="w-3 h-3 rounded-full bg-yellow-500/80"></span>
+            <span class="w-3 h-3 rounded-full bg-green-500/80"></span>
+          </div>
+          <span class="font-mono text-xs text-text-muted">bash - arsalan@dev</span>
+          <div class="w-4"></div>
+        </div>
+
+        <!-- Terminal Body -->
+        <div class="p-6 font-mono text-sm min-h-[220px] flex flex-col justify-start space-y-3 leading-relaxed" id="terminal-body">
+          <div class="flex items-center text-text-muted">
+            <span>Last login: {new Date().toDateString()} on ttys001</span>
+          </div>
+          <!-- Lines will be dynamically typed here by JS -->
+          <div id="terminal-lines" class="space-y-2"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  // Resume Download Button Alert (since it is a mock template endpoint)
+  const resumeBtn = document.getElementById('resume-download-btn');
+  resumeBtn?.addEventListener('click', (e) => {
+    e.preventDefault();
+    alert("Resume download triggered. (In production, this links to Arsalan's CV PDF file)");
+  });
+
+  // Terminal Typing Animation Script
+  const terminalLinesContainer = document.getElementById('terminal-lines');
+  
+  const consoleScript = [
+    { text: "arsalan.build()", type: "input", prefix: "> " },
+    { text: "✓ Frontend: React, TypeScript", type: "output", color: "text-accent-cyan" },
+    { text: "✓ Backend: .NET Core, Django", type: "output", color: "text-text-primary" },
+    { text: "✓ Cloud: AWS, Docker, Terraform", type: "output", color: "text-text-primary" },
+    { text: "✓ Status: Available for freelance", type: "output", color: "text-accent-green" }
+  ];
+
+  async function runTerminalAnimation() {
+    if (!terminalLinesContainer) return;
+    terminalLinesContainer.innerHTML = "";
+
+    for (let i = 0; i < consoleScript.length; i++) {
+      const line = consoleScript[i];
+      const lineDiv = document.createElement('div');
+      lineDiv.className = "flex items-start";
+      
+      if (line.type === "input") {
+        // Create prompt prefix
+        const prefixSpan = document.createElement('span');
+        prefixSpan.className = "text-accent-cyan mr-1.5 select-none";
+        prefixSpan.innerText = line.prefix || "";
+        lineDiv.appendChild(prefixSpan);
+
+        // Create container for typing text
+        const textSpan = document.createElement('span');
+        textSpan.className = "text-text-primary font-bold";
+        lineDiv.appendChild(textSpan);
+
+        // Create cursor
+        const cursorSpan = document.createElement('span');
+        cursorSpan.className = "inline-block w-2 h-4 bg-accent-cyan ml-0.5 animate-pulse";
+        lineDiv.appendChild(cursorSpan);
+
+        terminalLinesContainer.appendChild(lineDiv);
+
+        // Type character by character
+        for (let char of line.text) {
+          textSpan.innerText += char;
+          await delay(60);
+        }
+
+        // Remove cursor from finished line
+        cursorSpan.remove();
+      } else {
+        // Output line - delay and then print instantly
+        await delay(350);
+        
+        const outputSpan = document.createElement('span');
+        outputSpan.className = line.color || "text-text-secondary";
+        outputSpan.innerText = line.text;
+        lineDiv.appendChild(outputSpan);
+        
+        terminalLinesContainer.appendChild(lineDiv);
+      }
+    }
+
+    // Append blinking cursor at the very end
+    const lastLine = terminalLinesContainer.lastElementChild;
+    if (lastLine) {
+      const cursorSpan = document.createElement('span');
+      cursorSpan.className = "inline-block w-2 h-4 bg-accent-green ml-1.5 animate-pulse align-middle";
+      lastLine.appendChild(cursorSpan);
+    }
+  }
+
+  function delay(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  // Trigger terminal animation when hero becomes visible (or instantly)
+  runTerminalAnimation();
+</script>

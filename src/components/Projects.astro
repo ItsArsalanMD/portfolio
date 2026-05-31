@@ -1,0 +1,197 @@
+---
+import { projects } from '../data/projects.js';
+
+// Status badge styling helper
+const getStatusColor = (status: string) => {
+  switch (status.toLowerCase()) {
+    case 'live':
+      return 'bg-accent-green/10 border-accent-green/30 text-accent-green';
+    case 'open source':
+      return 'bg-accent-cyan/10 border-accent-cyan/30 text-accent-cyan';
+    default:
+      return 'bg-text-muted/10 border-text-muted/30 text-text-secondary';
+  }
+};
+---
+
+<section id="projects" class="py-24 relative overflow-hidden bg-bg-secondary/40">
+  <div class="max-w-7xl mx-auto px-6">
+    
+    <!-- Section Header -->
+    <div class="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6 reveal">
+      <div>
+        <span class="font-mono text-sm text-accent-cyan tracking-wider block mb-2">// PROJECTS</span>
+        <h2 class="font-display font-bold text-3xl md:text-4xl text-text-primary">
+          Things I've Built
+        </h2>
+      </div>
+
+      <!-- Filters -->
+      <div class="flex flex-wrap gap-2 border-b border-border-main pb-2 md:pb-0 md:border-none font-mono text-xs md:text-sm">
+        <button data-filter="All" class="filter-tab px-4 py-2 rounded-full border border-transparent text-text-secondary hover:text-accent-cyan transition-all duration-300 active-filter bg-bg-surface border-accent-cyan/35 text-accent-cyan">
+          All
+        </button>
+        <button data-filter="Full-Stack" class="filter-tab px-4 py-2 rounded-full border border-transparent text-text-secondary hover:text-accent-cyan transition-all duration-300">
+          Full-Stack
+        </button>
+        <button data-filter="Frontend" class="filter-tab px-4 py-2 rounded-full border border-transparent text-text-secondary hover:text-accent-cyan transition-all duration-300">
+          Frontend
+        </button>
+        <button data-filter="Backend" class="filter-tab px-4 py-2 rounded-full border border-transparent text-text-secondary hover:text-accent-cyan transition-all duration-300">
+          Backend
+        </button>
+        <button data-filter="DevOps" class="filter-tab px-4 py-2 rounded-full border border-transparent text-text-secondary hover:text-accent-cyan transition-all duration-300">
+          DevOps
+        </button>
+      </div>
+    </div>
+
+    <!-- Projects Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6" id="projects-grid">
+      {projects.map((project, idx) => (
+        <div 
+          data-category={project.category}
+          class={`project-card bg-bg-surface border rounded-xl p-6 md:p-8 flex flex-col justify-between transition-all duration-500 reveal stagger-${(idx % 2) + 1} ${
+            project.highlight 
+              ? 'border-accent-cyan/35 shadow-lg shadow-accent-cyan/5 relative overflow-hidden' 
+              : 'border-border-main'
+          }`}
+        >
+          <!-- Featured Tag Banner -->
+          {project.highlight && (
+            <div class="absolute top-0 right-0 bg-accent-cyan text-bg-primary font-mono text-[10px] uppercase font-bold tracking-wider px-3 py-1 rounded-bl-lg select-none">
+              Featured
+            </div>
+          )}
+
+          <div>
+            <!-- Top info bar -->
+            <div class="flex items-center gap-2.5 mb-4">
+              <span class="px-2.5 py-0.5 rounded-full border border-border-main font-mono text-[10px] text-text-secondary bg-bg-secondary/80">
+                {project.category}
+              </span>
+              <span class={`px-2.5 py-0.5 rounded-full border font-mono text-[10px] ${getStatusColor(project.status)}`}>
+                {project.status}
+              </span>
+            </div>
+
+            <!-- Title -->
+            <h3 class="font-display font-semibold text-xl text-text-primary mb-3">
+              {project.title}
+            </h3>
+
+            <!-- Description -->
+            <p class="font-body text-text-secondary text-sm md:text-base leading-relaxed mb-6">
+              {project.description}
+            </p>
+          </div>
+
+          <!-- Bottom bar (Tags + Links) -->
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-4 border-t border-border-main/50 mt-4">
+            
+            <!-- Tags -->
+            <div class="flex flex-wrap gap-1.5">
+              {project.tags.map((tag) => (
+                <span class="font-mono text-[11px] text-text-muted bg-bg-secondary/40 px-2 py-0.5 rounded">
+                  {tag}
+                </span>
+              ))}
+            </div>
+
+            <!-- Links -->
+            <div class="flex items-center gap-3 self-end sm:self-center font-mono">
+              {project.github && (
+                <a 
+                  href={project.github} 
+                  aria-label={`View GitHub repository for ${project.title}`}
+                  class="p-2 rounded bg-bg-secondary border border-border-main hover:border-accent-cyan hover:text-accent-cyan text-text-secondary transition-colors"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                  </svg>
+                </a>
+              )}
+              {project.demo && (
+                <a 
+                  href={project.demo} 
+                  aria-label={`View live demo for ${project.title}`}
+                  class="p-2 rounded bg-bg-secondary border border-border-main hover:border-accent-cyan hover:text-accent-cyan text-text-secondary transition-colors"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                    <polyline points="15 3 21 3 21 9"></polyline>
+                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                  </svg>
+                </a>
+              )}
+            </div>
+
+          </div>
+
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .project-card {
+    transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1), 
+                transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), 
+                border-color 0.3s ease, 
+                shadow 0.3s ease;
+  }
+  
+  .project-card.fade-out {
+    opacity: 0;
+    transform: scale(0.97) translateY(8px);
+  }
+</style>
+
+<script>
+  const filterTabs = document.querySelectorAll('.filter-tab');
+  const projectCards = document.querySelectorAll('.project-card');
+
+  filterTabs.forEach((tab) => {
+    tab.addEventListener('click', async (e) => {
+      // 1. Remove active-filter class and styles from current active tab
+      filterTabs.forEach((t) => {
+        t.classList.remove('bg-bg-surface', 'border-accent-cyan/35', 'text-accent-cyan');
+        t.classList.add('text-text-secondary', 'border-transparent');
+      });
+
+      // 2. Add active-filter class to clicked tab
+      const clicked = e.currentTarget as HTMLButtonElement;
+      clicked.classList.remove('text-text-secondary', 'border-transparent');
+      clicked.classList.add('bg-bg-surface', 'border-accent-cyan/35', 'text-accent-cyan');
+
+      const filterValue = clicked.getAttribute('data-filter');
+
+      // 3. Trigger fade-out animation
+      projectCards.forEach((card) => {
+        card.classList.add('fade-out');
+      });
+
+      // 4. Wait for fade-out to finish, then filter and fade back in
+      setTimeout(() => {
+        projectCards.forEach((card) => {
+          const cardCategory = card.getAttribute('data-category');
+          
+          if (filterValue === 'All' || cardCategory === filterValue) {
+            card.classList.remove('hidden');
+          } else {
+            card.classList.add('hidden');
+          }
+        });
+
+        // Small browser layout sync delay
+        requestAnimationFrame(() => {
+          projectCards.forEach((card) => {
+            card.classList.remove('fade-out');
+          });
+        });
+      }, 350); // aligns with CSS transitions
+    });
+  });
+</script>

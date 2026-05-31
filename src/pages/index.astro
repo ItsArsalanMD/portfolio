@@ -1,0 +1,43 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
+import About from '../components/About.astro';
+import Skills from '../components/Skills.astro';
+import Experience from '../components/Experience.astro';
+import Projects from '../components/Projects.astro';
+import Freelance from '../components/Freelance.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<BaseLayout>
+  <!-- Navigation Header -->
+  <Nav />
+
+  <main class="relative">
+    <!-- Hero / Landing Section -->
+    <Hero />
+
+    <!-- About Me Section -->
+    <About />
+
+    <!-- Technical Skills Section -->
+    <Skills />
+
+    <!-- Work Experience Section -->
+    <Experience />
+
+    <!-- Featured Projects Gallery Section -->
+    <Projects />
+
+    <!-- Freelance Offerings & Process Section -->
+    <Freelance />
+
+    <!-- Contact Form & Info Section -->
+    <Contact />
+  </main>
+
+  <!-- Footer Branding Section -->
+  <Footer />
+</BaseLayout>

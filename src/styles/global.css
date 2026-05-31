@@ -1,0 +1,132 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@500;700&display=swap');
+@import "tailwindcss";
+
+:root {
+  --bg-primary: #0a0a0f;       /* near-black with blue tint */
+  --bg-secondary: #111118;     /* card/section background */
+  --bg-surface: #1a1a25;       /* elevated surfaces */
+  --accent-cyan: #00d4ff;      /* primary accent */
+  --accent-green: #00ff88;     /* secondary accent (for success/active states) */
+  --text-primary: #f0f0f5;     /* near-white */
+  --text-secondary: #8888aa;   /* muted text */
+  --text-muted: #555570;       /* very muted */
+  --border: rgba(255, 255, 255, 0.07);
+  --border-accent: rgba(0, 212, 255, 0.25);
+}
+
+@theme {
+  --color-bg-primary: var(--bg-primary);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-bg-surface: var(--bg-surface);
+  --color-accent-cyan: var(--accent-cyan);
+  --color-accent-green: var(--accent-green);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-border-main: var(--border);
+  --color-border-accent: var(--border-accent);
+
+  --font-display: "Space Grotesk", sans-serif;
+  --font-body: "DM Sans", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+  }
+
+  body {
+    background-color: var(--bg-primary);
+    overflow-x: hidden;
+  }
+}
+
+/* Utilities */
+.dot-grid {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.glow-bg {
+  background: radial-gradient(600px circle at 50% 50%, rgba(0, 212, 255, 0.06), transparent 80%);
+}
+
+.glow-bg-green {
+  background: radial-gradient(600px circle at 50% 50%, rgba(0, 255, 136, 0.05), transparent 80%);
+}
+
+/* Custom Cursor (Desktop Only) */
+@media (min-width: 1024px) {
+  .custom-cursor-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    position: fixed;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 9999;
+    mix-blend-mode: difference;
+    transition: width 0.2s ease, height 0.2s ease;
+  }
+
+  .custom-cursor-ring {
+    width: 32px;
+    height: 32px;
+    border: 1px solid rgba(0, 212, 255, 0.3);
+    border-radius: 50%;
+    position: fixed;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 9998;
+    transition: left 0.1s ease-out, top 0.1s ease-out, width 0.2s ease, height 0.2s ease, border-color 0.2s ease;
+  }
+
+  .cursor-hover .custom-cursor-dot {
+    width: 16px;
+    height: 16px;
+  }
+
+  .cursor-hover .custom-cursor-ring {
+    width: 48px;
+    height: 48px;
+    border-color: rgba(0, 255, 136, 0.6);
+  }
+}
+
+/* Scroll Reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.stagger-1 { transition-delay: 0.1s; }
+.stagger-2 { transition-delay: 0.2s; }
+.stagger-3 { transition-delay: 0.3s; }
+.stagger-4 { transition-delay: 0.4s; }
+.stagger-5 { transition-delay: 0.5s; }
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--bg-surface);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 212, 255, 0.3);
+}

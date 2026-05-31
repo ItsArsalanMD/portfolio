@@ -1,0 +1,78 @@
+---
+import { experience } from '../data/experience.js';
+---
+
+<section id="experience" class="py-24 relative overflow-hidden bg-bg-secondary/20">
+  <div class="max-w-4xl mx-auto px-6">
+    
+    <!-- Section Header -->
+    <div class="mb-16 reveal">
+      <span class="font-mono text-sm text-accent-cyan tracking-wider block mb-2">// EXPERIENCE</span>
+      <h2 class="font-display font-bold text-3xl md:text-4xl text-text-primary">
+        Where I've Worked
+      </h2>
+    </div>
+
+    <!-- Timeline Wrapper -->
+    <div class="relative border-l border-accent-cyan/30 ml-3 md:ml-6 space-y-12">
+      {experience.map((item, idx) => (
+        <div class="relative pl-8 md:pl-10 reveal">
+          
+          <!-- Timeline Pulse Dot -->
+          <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-bg-primary border-2 border-accent-cyan flex items-center justify-center">
+            <span class="w-1.5 h-1.5 rounded-full bg-accent-cyan animate-ping absolute"></span>
+            <span class="w-1.5 h-1.5 rounded-full bg-accent-cyan"></span>
+          </div>
+
+          <!-- Card Content -->
+          <div 
+            class="bg-bg-surface border border-border-main rounded-xl p-6 md:p-8 shadow-lg hover:border-accent-cyan/35 hover:-translate-y-1 transition-all duration-300 group"
+          >
+            <!-- Card Header -->
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+              <div>
+                <h3 class="font-display font-bold text-xl md:text-2xl text-text-primary group-hover:text-accent-cyan transition-colors">
+                  {item.role}
+                </h3>
+                <div class="font-display font-medium text-accent-cyan text-base mt-1">
+                  {item.company}
+                </div>
+              </div>
+
+              <!-- Meta Badges -->
+              <div class="flex flex-wrap gap-2 items-center text-xs font-mono">
+                <span class="px-2.5 py-1 rounded bg-bg-secondary border border-border-main text-text-secondary">
+                  {item.period}
+                </span>
+                <span class="px-2.5 py-1 rounded bg-accent-cyan/10 border border-accent-cyan/20 text-accent-cyan">
+                  {item.type}
+                </span>
+              </div>
+            </div>
+
+            <!-- Location Badge -->
+            <div class="flex items-center gap-1.5 text-xs font-mono text-text-muted mb-6">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 text-accent-cyan" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+              {item.location}
+            </div>
+
+            <!-- Bullet Highlights -->
+            <ul class="space-y-3 font-body text-text-secondary text-sm md:text-base">
+              {item.highlights.map((highlight) => (
+                <li class="flex items-start gap-3">
+                  <span class="text-accent-cyan select-none mt-1 font-mono text-xs">▸</span>
+                  <span>{highlight}</span>
+                </li>
+              ))}
+            </ul>
+
+          </div>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>

@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0a0f" />
+      <stop offset="100%" stop-color="#111118" />
+    </linearGradient>
+    
+    <!-- Accent Gradient -->
+    <linearGradient id="accent-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00d4ff" />
+      <stop offset="100%" stop-color="#00ff88" />
+    </linearGradient>
+
+    <!-- Glow Filter -->
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="12" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Outer Squircle with Gradient Border -->
+  <rect x="16" y="16" width="480" height="480" rx="120" fill="url(#bg-grad)" stroke="url(#accent-grad)" stroke-width="12" />
+
+  <!-- Hexagon Pattern Overlay / Grid lines (Subtle) -->
+  <path d="M256 60 L412 150 L412 330 L256 420 L100 330 L100 150 Z" stroke="rgba(0, 212, 255, 0.08)" stroke-width="6" stroke-dasharray="10 5" fill="none" />
+
+  <!-- Code Logo Group with Glow -->
+  <g filter="url(#glow)">
+    <!-- Left Bracket < -->
+    <path d="M150 200 L90 256 L150 312" stroke="#00d4ff" stroke-width="28" stroke-linecap="round" stroke-linejoin="round" />
+    
+    <!-- Right Bracket /> -->
+    <path d="M335 200 L395 256 L335 312" stroke="#00ff88" stroke-width="28" stroke-linecap="round" stroke-linejoin="round" />
+    <!-- Slash of /> -->
+    <path d="M365 180 L305 332" stroke="url(#accent-grad)" stroke-width="24" stroke-linecap="round" />
+
+    <!-- Text "AS" in the center -->
+    <text x="228" y="278" font-family="'Space Grotesk', 'JetBrains Mono', system-ui, sans-serif" font-size="100" font-weight="bold" fill="#f0f0f5" text-anchor="middle" letter-spacing="-2">AS</text>
+  </g>
+</svg>
